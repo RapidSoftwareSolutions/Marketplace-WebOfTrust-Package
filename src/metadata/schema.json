@@ -1,0 +1,80 @@
+{
+    "package": "WebOfTrust",
+    "tagline": "WebOfTrust API",
+    "description": "MyWOT\/WOT (Web of Trust) is a browser add-on and web site. WOT is an online reputation and Internet safety service, providing crowdsourced reviews and other data about whether websites respect user privacy, are secure, and other indicators of trust.",
+    "image": "https:\/\/logo.clearbit.com\/mywot.com",
+    "repo": "https://github.com/RapidSoftwareSolutions/Marketplace-WebOfTrust-Package",
+    "keywords": [
+        "API",
+        "Web",
+        "Trust",
+        "Safety",
+        "Rating",
+        "add-on"
+    ],
+    "accounts": {
+        "domain": "www.mywot.com",
+        "credentials": [
+            "apiKey"
+        ]
+    },
+    "steps": [
+        "In order to request a key, you need a WOT account.",
+        "Once you have an account, you can request your API key from this page https:\/\/www.mywot.com\/en\/signup?destination=profile\/api",
+        "After you have requested a key, you will see an API tab in your profile where you can update the information and access the key."
+    ],
+    "blocks": [
+        {
+            "name": "getReputationsForHosts",
+            "description": "Is used for requesting reputations for multiple targets.More information in readme.",
+            "args": [
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API key.",
+                    "required": true,
+                    "vendorSchema": {
+                        "name": "key"
+                    }
+                },
+                {
+                    "name": "hosts",
+                    "type": "List",
+                    "info": "A list of target names separated with a forward slash (\u201c\/\u201d). For example, www.example.com\/another.example.net\/onemore.example.org\/. The value must end with a slash and must include at most 100 target names. Note: the full request path must also be less than 8 KiB or it will be rejected.",
+                    "required": true,
+                    "structure": {
+                        "name": "host",
+                        "type": "String",
+                        "info": "Single host url.Example - www.EXAMPLE.NET."
+                    },
+                    "vendorSchema": {
+                        "format": "toString:{/}"
+                    }
+                }
+            ],
+            "vendorRequest": {
+                "url": "http:\/\/api.mywot.com\/0.4\/public_link_json2",
+                "method": "get",
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "key",
+                            "hosts"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        }
+    ]
+}
