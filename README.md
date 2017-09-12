@@ -25,5 +25,5 @@ Is used for requesting reputations for multiple targets.More information [here](
 | Field | Type       | Description
 |-------|------------|----------
 | apiKey| credentials| Your API key.
-| hosts | List       | A list of target names separated with a forward slash (“/”). For example, www.example.com/another.example.net/onemore.example.org/. The value must end with a slash and must include at most 100 target names. Note: the full request path must also be less than 8 KiB or it will be rejected.
+| hosts | List       |  A list of target names .Note: the full request path must also be less than 8 KiB or it will be rejected.
 

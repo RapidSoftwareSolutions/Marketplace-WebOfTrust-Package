@@ -40,7 +40,7 @@
                 {
                     "name": "hosts",
                     "type": "List",
-                    "info": "A list of target names separated with a forward slash (\u201c\/\u201d). For example, www.example.com\/another.example.net\/onemore.example.org\/. The value must end with a slash and must include at most 100 target names. Note: the full request path must also be less than 8 KiB or it will be rejected.",
+                    "info": "A list of target names. Note: the full request path must also be less than 8 KiB or it will be rejected.",
                     "required": true,
                     "structure": {
                         "name": "host",
