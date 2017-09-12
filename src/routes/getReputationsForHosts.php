@@ -78,7 +78,7 @@ ini_set('display_errors',1);
             $body = $pq->find('html')->find('body')->text();
             if(!empty($body))
             {
-                $out = $body;
+                $out = trim($body);
             }
 
         }
