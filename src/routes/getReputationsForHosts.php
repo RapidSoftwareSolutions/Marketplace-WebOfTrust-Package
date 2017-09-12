@@ -2,7 +2,7 @@
 
 $app->post('/api/WebOfTrust/getReputationsForHosts', function ($request, $response) {
 
-
+ini_set('display_errors',1);
     $settings = $this->settings;
     $checkRequest = $this->validation;
     $validateRes = $checkRequest->validate($request, ['apiKey']);
@@ -34,11 +34,11 @@ $app->post('/api/WebOfTrust/getReputationsForHosts', function ($request, $respon
 
     
     $data['hosts'] = \Models\Params::toString($data['hosts'], '/'); 
+    $data['hosts'] = $data['hosts'].'/';
 
     $client = $this->httpClient;
     $query_str = "http://api.mywot.com/0.4/public_link_json2";
 
-    
 
     $requestParams = \Models\Params::createRequestBody($data, $bodyParams);
     $requestParams['headers'] = [];
@@ -69,6 +69,21 @@ $app->post('/api/WebOfTrust/getReputationsForHosts', function ($request, $respon
         } else {
             $out = json_decode($responseBody);
         }
+
+        if(!is_array($out))
+        {
+            require '/vendor/electrolinux/phpquery/phpQuery/phpQuery.php';
+
+            $pq = phpQuery::newDocument($out);
+            $body = $pq->find('html')->find('body')->text();
+            if(!empty($body))
+            {
+                $out = $body;
+            }
+
+        }
+
+
         $result['callback'] = 'error';
         $result['contextWrites']['to']['status_code'] = 'API_ERROR';
         $result['contextWrites']['to']['status_msg'] = $out;
